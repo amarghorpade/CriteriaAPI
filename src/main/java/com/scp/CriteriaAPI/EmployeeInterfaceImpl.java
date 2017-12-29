@@ -9,6 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
@@ -60,7 +61,6 @@ public class EmployeeInterfaceImpl implements EmployeeInterface {
 	public void getEmployeeOfMaxSal(int sal) throws MyException {
 		Session session= Hibernateutil.getSessionFactory().openSession();
 
-		
 		Criteria criteria=session.createCriteria(Employee.class);
 		Criterion criterion=Restrictions.gt("empSal", sal);
 		criteria.add(criterion);
@@ -73,7 +73,6 @@ public class EmployeeInterfaceImpl implements EmployeeInterface {
 		}
 		
 	}
-
 
 	public void showEmployeeSomeDetails() throws MyException 
 	{
@@ -102,5 +101,46 @@ public class EmployeeInterfaceImpl implements EmployeeInterface {
 			for(int i=1; i< obj.length; i++)
 			System.out.println(obj[0]+"  "+obj[1]);;
 		}
+	}
+
+
+	public void sortEmployeeBySal() throws MyException 
+	{
+		/**
+		 * Order is class available in HB we need to call asc, desc static method, and pass 
+		 * on which field we need to sort. and call addorder method of criteria. 
+		 */
+		Session session= Hibernateutil.getSessionFactory().openSession();
+
+		Criteria criteria=session.createCriteria(Employee.class);
+		Order order= Order.asc("empSal");
+		criteria.addOrder(order);
+		List list= criteria.list();
+		Iterator itr= list.iterator();
+		while (itr.hasNext()) {
+			Employee e = (Employee)itr.next();
+			System.out.println(e.getEmpId()+"  "+e.getEmpName()+"  "+e.getEmpSal()+"  "+e.getDeptId());;
+		}
+	}
+
+
+	public void paginationEmployee() throws MyException 
+	{
+		/**
+		 * Pagination--how much records we want to display on one page we need to give,
+		 * then we giving below properties.
+		 */
+		Session session= Hibernateutil.getSessionFactory().openSession();
+
+		Criteria criteria=session.createCriteria(Employee.class);
+		criteria.setFirstResult(0);
+		criteria.setMaxResults(3);
+		List list= criteria.list();
+		Iterator itr= list.iterator();
+		while (itr.hasNext()) {
+			Employee e = (Employee)itr.next();
+			System.out.println(e.getEmpId()+"  "+e.getEmpName()+"  "+e.getEmpSal()+"  "+e.getDeptId());;
+		}
+		
 	}
 }

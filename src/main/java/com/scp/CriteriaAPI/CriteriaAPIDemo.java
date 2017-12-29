@@ -26,9 +26,13 @@ public class CriteriaAPIDemo
 		empImpl.insertEmployee(emp6);
 		*/
 		
+		
 		//empImpl.searchEmployee(101);
 		//empImpl.getEmployeeOfMaxSal(8000);
-		empImpl.showEmployeeSomeDetails();
+		//empImpl.showEmployeeSomeDetails();
 		//empImpl.getAllEmployee();
+		//empImpl.sortEmployeeBySal();
+		empImpl.paginationEmployee();
+		
 	}
 }

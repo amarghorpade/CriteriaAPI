@@ -7,4 +7,6 @@ public interface EmployeeInterface
 	void showEmployeeSomeDetails()throws MyException;
 	void getAllEmployee()throws MyException;
 	void getEmployeeOfMaxSal(int sal)throws MyException;
+	void sortEmployeeBySal()throws MyException;
+	void paginationEmployee()throws MyException;
 }
